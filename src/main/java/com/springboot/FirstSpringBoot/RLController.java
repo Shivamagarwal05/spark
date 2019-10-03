@@ -48,7 +48,7 @@ public class RLController
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;  
+		return null;
 		 
 	}
 	@RequestMapping("/register")
