@@ -35,7 +35,7 @@ public class RLController
 				{
 					System.out.println("in");
 					//ResponseEntity<LoginDetails> entity = new ResponseEntity<LoginDetails>(HttpStatus.ACCEPTED);
-					detail.setPassword(null);
+					
 					return ResponseEntity.ok()
 			        .header("Custom-Header", "foo")
 			        .body(detail);
