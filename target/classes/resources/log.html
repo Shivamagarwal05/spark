@@ -1,0 +1,110 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+
+<title>Login</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;}
+.main
+{
+
+	
+	padding:100px 0px 100px 450px;
+		
+}
+.input-container {
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  width: 100%;
+  margin-bottom: 15px;
+
+}
+
+.icon {
+  padding: 10px;
+  background: #333;
+  color: white;
+  min-width: 50px;
+  text-align: center;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px;
+  outline: none;
+}
+
+.input-field:focus {
+  border: 2px solid #333;
+}
+
+/* Set a style for the submit button */
+.btn {
+  background-color: #333;
+  color: white;
+  padding: 15px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.btn:hover {
+  opacity: 1;
+}
+</style>
+
+
+</head>
+
+<body>
+
+	<div class="main">
+<form action="/login" id ="#myform" method="post" style="max-width:500px;margin=auto;">
+  <h2>LogIn Form</h2>
+  
+  <div class="input-container">
+    <i class="fa fa-envelope icon"></i>
+    <input class="input-field" type="email" placeholder="Email" name="email">
+  </div>
+  
+  <div class="input-container">
+    <i class="fa fa-key icon"></i>
+    <input class="input-field" type="password" placeholder="Password" name="password">
+  </div>
+  <button type="submit" class="btn">LogIn</button>
+</form>
+</div>
+<script>
+$(function() {
+    //hang on event of form with id=myform
+    $("#myform").submit(function(e) {
+
+        //prevent Default functionality
+        e.preventDefault();
+
+        //get the action-url of the form
+        var actionurl = e.currentTarget.action;
+
+        //do your own request an handle the results
+        $.ajax({
+                url: '/login',
+                type: 'post',
+                dataType: 'application/json',
+                data: $("#myform").serialize(),
+                success: function(data) {
+                   
+                    alert('login success');
+                }
+        });
+
+    });
+
+});
+</script>
+	
+</body>
+</html>
