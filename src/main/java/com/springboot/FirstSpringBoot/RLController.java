@@ -9,6 +9,8 @@ import java.sql.Statement;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,8 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class RLController
 {
 	public static Connection con = DatabaseConn.getCon();
-	@RequestMapping("/login")
-	public ResponseEntity<LoginDetails> login(LoginDetails detail)
+	@PostMapping(path="/login")
+	public ResponseEntity<LoginDetails> login(@RequestBody LoginDetails detail)
 	{
 		System.out.println(detail.getEmail()+"  "+detail.getPassword());
 		try {

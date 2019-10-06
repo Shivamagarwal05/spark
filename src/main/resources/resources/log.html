@@ -61,30 +61,34 @@ body {font-family: Arial, Helvetica, sans-serif;}
 </head>
 
 <body>
-
+ <div id="feedback"></div>
 	<div class="main">
-<form id ="#myform" action="/login" method="get" style="max-width:500px;margin=auto;">
+<form id ="myform" style="max-width:500px;margin=auto;">
   <h2>LogIn Form</h2>
   
   <div class="input-container">
     <i class="fa fa-envelope icon"></i>
-    <input class="input-field" type="email" placeholder="Email" name="email">
+    <input class="input-field" type="email" placeholder="Email" name="email" id="email">
   </div>
   
   <div class="input-container">
     <i class="fa fa-key icon"></i>
-    <input class="input-field" type="password" placeholder="Password" name="password">
+    <input class="input-field" type="password" placeholder="Password" name="password" id="password">
   </div>
   <button type="submit" class="btn">LogIn</button>
 </form>
 </div>
 <script>
 $(function() {
+	
     //hang on event of form with id=myform
     $("#myform").submit(function(e) {
-
+    	var search = {}
+        search["email"] = $("#email").val();
+    	 search["password"] = $("#password").val();
+    	  console.log(JSON.stringify(search));
         //prevent Default functionality
-        //e.preventDefault();
+        e.preventDefault();
 
         //get the action-url of the form
         //var actionurl = e.currentTarget.action;
@@ -92,12 +96,18 @@ $(function() {
         //do your own request an handle the results
         $.ajax({
                 url: '/login',
-                type: 'get',
-                dataType: 'application/json',
-                data: $("#myform").serialize(),
+                type: 'POST',
+                dataType:'json',
+                contentType: "application/json; charset=utf-8",
+                data:JSON.stringify(search),
+                processData:false,
                 success: function(data) {
                    
-                    alert('login success');
+                	var json = "<h4>Ajax Response</h4><pre>"
+                        + JSON.stringify(data, null, 4) + "</pre>";
+                    $('#feedback').html(json);
+
+                    console.log("SUCCESS : ", data);
                 }
         });
 
