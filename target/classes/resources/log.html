@@ -57,13 +57,13 @@ body {font-family: Arial, Helvetica, sans-serif;}
 }
 </style>
 
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 
 <body>
 
 	<div class="main">
-<form action="#" id ="#myform" method="post" style="max-width:500px;margin=auto;">
+<form id ="#myform" action="/login" method="get" style="max-width:500px;margin=auto;">
   <h2>LogIn Form</h2>
   
   <div class="input-container">
@@ -84,15 +84,15 @@ $(function() {
     $("#myform").submit(function(e) {
 
         //prevent Default functionality
-        e.preventDefault();
+        //e.preventDefault();
 
         //get the action-url of the form
-        var actionurl = e.currentTarget.action;
+        //var actionurl = e.currentTarget.action;
 
         //do your own request an handle the results
         $.ajax({
                 url: '/login',
-                type: 'post',
+                type: 'get',
                 dataType: 'application/json',
                 data: $("#myform").serialize(),
                 success: function(data) {
