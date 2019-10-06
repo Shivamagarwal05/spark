@@ -103,11 +103,11 @@ $(function() {
                 processData:false,
                 success: function(data) {
                    
-                	var json = "<h4>Ajax Response</h4><pre>"
-                        + JSON.stringify(data, null, 4) + "</pre>";
+                	var json = "<h4>Successfully logged In As: </h4><pre>"
+                        + data.email + "</pre>";
                     $('#feedback').html(json);
 
-                    console.log("SUCCESS : ", data);
+                    console.log("SUCCESS : ",data.email);
                 }
         });
 
