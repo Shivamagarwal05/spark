@@ -101,19 +101,52 @@ $(function() {
                 contentType: "application/json; charset=utf-8",
                 data:JSON.stringify(search),
                 processData:false,
-                success: function(data) {
-                   
-                	var json = "<h4>Successfully logged In As: </h4><pre>"
-                        + data.email + "</pre>";
-                    $('#feedback').html(json);
-
-                    console.log("SUCCESS : ",data.email);
+                statusCode: {
+                	200 : function(response,textstatus,xhr) {
+                        
+                    	
+						setCookie('Auth-Code', response.getResponseHeader("Auth-Code"),10);
+                        console.log("SUCCESS : "+ response.getResponseHeader('Auth-Code'));
+                        window.location.href="dash.html";
+                    
+                    }
+              
+             
+                    
+             
+                	
                 }
+                       
         });
 
     });
 
 });
+
+function setCookie(cname, cvalue, exdays) {
+	  var d = new Date();
+	  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+	  var expires = "expires="+ d.toUTCString();
+	  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+	}
+function getCookie(cname) {
+	  var name = cname + "=";
+	  var decodedCookie = decodeURIComponent(document.cookie);
+	  var ca = decodedCookie.split(';');
+	  for(var i = 0; i <ca.length; i++) {
+	    var c = ca[i];
+	    while (c.charAt(0) == ' ') {
+	      c = c.substring(1);
+	    }
+	    if (c.indexOf(name) == 0) {
+	      return c.substring(name.length, c.length);
+	    }
+	  }
+	  return "";
+	}
+	
+	
+	
 </script>
 	
 </body>

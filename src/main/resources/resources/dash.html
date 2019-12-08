@@ -1,0 +1,88 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+
+<title></title>
+<p id="name"></p>
+<p id="email"></p>
+<p id="timeline"></p>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+
+<script>
+
+    	
+    	$(document).ready(function(){
+    		var auth =getCookie("Auth-Code");
+        	//alert(auth);
+    		
+        	
+        	 $.ajax({
+                 url: '/dashboard',
+                 type: 'POST',
+                 headers:{'Auth-Code':auth},
+                 statusCode: {
+                 	200 : function(response,textstatus,xhr) {
+                         
+                     	
+ 						alert((xhr.responseText));
+ 						var res = JSON.parse(xhr.responseText);
+ 						
+ 						document.getElementById("name").innerHTML=res.firstname;
+ 						document.getElementById("email").innerHTML=res.email;
+ 						for(var i=0;i<res.usertimeline.event.length;i++)
+ 							{
+
+ 						document.getElementById("timeline").innerHTML+="\n<br>"+res.usertimeline.event[i].eventdesc;
+ 							}
+                     
+                     }
+                 	
+                 }
+                        
+         });
+        	
+        	
+        	
+        	
+        	
+        	
+        	
+        	
+    		});
+       
+
+
+function setCookie(cname, cvalue, exdays) {
+	  var d = new Date();
+	  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+	  var expires = "expires="+ d.toUTCString();
+	  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+	}
+function getCookie(cname) {
+	  var name = cname + "=";
+	  var decodedCookie = decodeURIComponent(document.cookie);
+	  console.log(decodedCookie);
+	  var ca = decodedCookie.split(';');
+	  for(var i = 0; i <ca.length; i++) {
+	    var c = ca[i];
+	    console.log(c);
+	    console.log("Shivam");
+	    while (c.charAt(0) == ' ') {
+	      c = c.substring(1);
+	    }
+	    if (c.indexOf(name) == 0) {
+	      return c.substring(name.length, c.length);
+	    }
+	  }
+	  return "";
+	}
+	
+	
+	
+</script>
+	
+</body>
+</html>
