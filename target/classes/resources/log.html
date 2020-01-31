@@ -92,9 +92,12 @@ $(function() {
 
         //get the action-url of the form
         //var actionurl = e.currentTarget.action;
-
+		var cookiename="Auth-Code"+search["email"];
         //do your own request an handle the results
-        $.ajax({
+         var cookiename=window.btoa(cookiename);
+        // cookiename = cookiename + "A";
+         console.log(cookiename);
+     $.ajax({
                 url: '/login',
                 type: 'POST',
                 dataType:'json',
@@ -104,10 +107,10 @@ $(function() {
                 statusCode: {
                 	200 : function(response,textstatus,xhr) {
                         
-                    	
-						setCookie('Auth-Code', response.getResponseHeader("Auth-Code"),10);
+                    	console.log(cookiename);
+						setCookie(cookiename,response.getResponseHeader("Auth-Code"),10);
                         console.log("SUCCESS : "+ response.getResponseHeader('Auth-Code'));
-                        window.location.href="dash.html";
+                        window.location.href="Dashboard.html?cnm="+cookiename;
                     
                     }
               

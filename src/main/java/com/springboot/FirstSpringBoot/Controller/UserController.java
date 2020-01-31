@@ -7,10 +7,14 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -47,12 +51,14 @@ public class UserController
 			
 			LoginDetails loguser= loginreposervice.findByHash(hashcode);
 			LoginDetails loguser1= loginreposervice.findByEmail(email);
-			System.out.println(loguser1.getEmail()+" "+loguser.getHashcode()+" "+loguser.getPassword());
+			System.out.println(loguser+"   "+loguser);
+			//System.out.println(loguser1.getEmail()+" "+loguser.getHashcode()+" "+loguser.getPassword());
 			if(loguser!=null)
 			{
 				HttpHeaders headers = new HttpHeaders();
+				System.out.println();
 				headers.add("Auth-Code",hashcode);
-				return new ResponseEntity<String>("Succesfully Registered",headers,HttpStatus.OK);
+				return new ResponseEntity<String>("Succesfully logged in",headers,HttpStatus.OK);
 				
 			
 			}
@@ -78,7 +84,7 @@ public class UserController
 				Timeline t= new Timeline();
 				List<Event> list = new ArrayList<Event>();
 				t.setEvent(list);
-				
+				detail.setUsertimeline(t);
 				registerreposervice.insertUser(detail);
 				loginreposervice.insertLoginCred(new LoginDetails(detail.getEmail(), hashcode, detail.getPassword()));
 				
@@ -103,7 +109,7 @@ public class UserController
 	public ResponseEntity<UserDetails> getDash(@RequestHeader("Auth-Code") String hashcode)
 	{
 		
-		 
+		 	//System.out.println("%%%%%%%%%%%%%%%***"+authcode);
 			LoginDetails user= loginreposervice.findByHash(hashcode);
 			System.out.println(user.toString());
 			UserDetails userdata=registerreposervice.getUserByEmail(user.getEmail());
@@ -145,6 +151,16 @@ public class UserController
 		
 		
 		
+		
+	}
+	@PostMapping(path="/logout")
+	public void logoutcont(@RequestHeader("cookiename") String cname,HttpServletResponse response)
+	{
+		System.out.println("@@@@@@@@@@@@@@"+cname);
+		Cookie cookie = new Cookie(cname, null);
+		cookie.setMaxAge(0);
+		cookie.setPath("/");
+		response.addCookie(cookie);
 		
 	}
 	
