@@ -10,11 +10,11 @@ public class LoginDetails
 	{
 		
 	}
-	public LoginDetails(String email, String password) 
+	public LoginDetails(String email, String password, String hashcode) 
 	{
 		super();
 		this.email = email;
-		//this.hashcode = hashcode;
+		this.hashcode = hashcode;
 		this.password = password;
 	}
 	
@@ -29,12 +29,12 @@ public class LoginDetails
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	/*public String getHashcode() {
+	public String getHashcode() {
 		return hashcode;
 	}
 	public void setHashcode(String hashcode) {
 		this.hashcode = hashcode;
-	}*/
+	}
 	public String getPassword() {
 		return password;
 	}
